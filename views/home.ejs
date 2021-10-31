@@ -1,0 +1,135 @@
+<html>
+<head>
+    <style>
+        footer {
+            position: fixed;
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            text-align: center;
+            background-color: snow;
+        }
+        .blink_me {
+            animation: blinker 1.5s linear infinite;
+        }
+
+        @keyframes blinker {
+            50% {
+                opacity: 0;
+            }
+        }
+    </style>
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.4/css/all.css" integrity="sha384-DyZ88mC6Up2uqS4h/KRgHuoeGwBcD4Ng9SiP4dIRy0EXTlnuz47vAwmeGwVChigm" crossorigin="anonymous">
+
+</head>
+<body>
+<nav class="flex items-center justify-between flex-wrap bg-teal-500 p-6 bg-black">
+    <div class="flex items-center flex-shrink-0 text-white mr-6">
+        <span class="font-semibold text-3xl tracking-tight">Contacts List</span>
+    </div>
+    <div class="block lg:hidden">
+        <button class="flex items-center px-3 py-2 border rounded text-teal-200 border-teal-400 hover:text-white hover:border-white">
+            <svg class="fill-current h-3 w-3" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><title>Menu</title><path d="M0 3h20v2H0V3zm0 6h20v2H0V9zm0 6h20v2H0v-2z"/></svg>
+        </button>
+    </div>
+    <div class="w-full block flex-grow lg:flex lg:items-center lg:w-auto">
+        <% if(locals.user){%>
+        <div class="text-sm lg:flex-grow">
+            <a href="#responsive-header" class="blink_me block mt-4 lg:inline-block lg:mt-0 text-teal-200 text-white">
+               <%= locals.user.name%>
+            </a>
+        </div>
+        <%}%>
+        <div>
+            <% if (locals.user){%>
+            <a href="/contact/contacts" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black-500 hover:bg-black mt-4 lg:mt-0">Edit Contact</a>
+            <%}%>
+        </div>
+        <div>
+            <a href="/users/sign-up" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black-500 hover:bg-black mt-4 lg:mt-0">Sign Up</a>
+        </div>
+        <div>
+            <% if (locals.user){%>
+                <a href="/users/sign-out" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black-500 hover:bg-black mt-4 lg:mt-0">Sign Out</a>
+            <%}%>
+        </div>
+
+        <div>
+            <a href="/users/sign-in" class="inline-block text-sm px-4 py-2 leading-none border rounded text-white border-white hover:border-transparent hover:text-black-500 hover:bg-black mt-4 lg:mt-0">Sign In</a>
+        </div>
+    </div>
+</nav>
+<center>
+<h1 class="my-10"> Welcome to your Contact List</h1>
+    <% if(!locals.user){%>
+        <h1 class="my-10"> Please Sign In to Access your Contacts ....</h1>
+    <%}%>
+
+    <% if(locals.user) {%>
+        <% for (let i of contact_list) { %>
+
+<div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20 border-4 border-black">
+
+    <div class="flex justify-center md:justify-end -mt-16">
+        <img class="w-20 h-20 object-cover rounded-full border-4 border-black" src="https://images.unsplash.com/photo-1499714608240-22fc6ad53fb2?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=334&q=80">
+    </div>
+    <div>
+        <h2 class="text-gray-800 text-3xl font-semibold"> <a href="/contact/delete-contact/?id=<%=i._id %>">
+                <i class="far fa-trash-alt"></i>
+            </a> </h2>
+        <p class="mt-2 text-gray-600 text-2xl"><%= i.phone%></p>
+    </div>
+    <div class="flex justify-end mt-4">
+        <a href="#" class="text-xl font-medium text-indigo-500"><%= i.name%></a>
+    </div>
+
+</div>
+            <%}%>
+    <%}%>
+</center>
+
+
+    <footer class="px-4 py-4 bg-blue mt-18">
+        <div class="container flex flex-wrap items-center justify-center mx-auto space-y-4 sm:justify-between sm:space-y-0">
+            <div class="flex flex-row pr-3 space-x-4 sm:space-x-8">
+                <div class="flex items-center justify-center flex-shrink-0 w-12 h-12 rounded-full dark:bg-violet-400">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" fill="currentColor" class="w-5 h-5 rounded-full dark:text-coolGray-900">
+                        <path d="M18.266 26.068l7.839-7.854 4.469 4.479c1.859 1.859 1.859 4.875 0 6.734l-1.104 1.104c-1.859 1.865-4.875 1.865-6.734 0zM30.563 2.531l-1.109-1.104c-1.859-1.859-4.875-1.859-6.734 0l-6.719 6.734-6.734-6.734c-1.859-1.859-4.875-1.859-6.734 0l-1.104 1.104c-1.859 1.859-1.859 4.875 0 6.734l6.734 6.734-6.734 6.734c-1.859 1.859-1.859 4.875 0 6.734l1.104 1.104c1.859 1.859 4.875 1.859 6.734 0l21.307-21.307c1.859-1.859 1.859-4.875 0-6.734z"></path>
+                    </svg>
+                </div>
+                <ul class="flex flex-wrap items-center space-x-4 sm:space-x-8">
+                    <li>
+                        <a href="#">Terms of Use</a>
+                    </li>
+                    <li>
+                        <a href="#">Privacy</a>
+                    </li>
+                </ul>
+            </div>
+            <ul class="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
+                <li class="text-xl">Designed By</li> <li class="text-red-500 text-xl"> Shivanshu Panwar...</li>
+            </ul>
+            <ul class="flex flex-wrap pl-3 space-x-4 sm:space-x-8">
+                <li>
+                    <a href="#">Instagram</a>
+                </li>
+                <li>
+                    <a href="#">Facebook</a>
+                </li>
+                <li>
+                    <a href="#">Twitter</a>
+                </li>
+            </ul>
+        </div>
+    </footer>
+
+
+
+
+
+
+
+</body>
+</html>
+
