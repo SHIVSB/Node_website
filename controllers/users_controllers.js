@@ -1,7 +1,6 @@
 const Users = require('../models/users');
 const Contact = require('../models/contact');
 
-
 module.exports.profile = function (req,res){
     Contact.find({},function(err,contact){
         if(err){
@@ -32,9 +31,11 @@ module.exports.signIn = function (req,res){
     if(req.isAuthenticated()){
         return res.redirect('/users/profile');
     }
+    const userEmail = Users.findById(req.body.email);
 
     return res.render('user_sign_in',{
-        title: "Contacts List"
+        title: "Contacts List",
+        uemail: userEmail
     })
 }
 

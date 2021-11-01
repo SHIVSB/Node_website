@@ -66,9 +66,9 @@
         <h1 class="my-10"> Please Sign In to Access your Contacts ....</h1>
     <%}%>
 
-    <% if(locals.user) {%>
-        <% for (let i of contact_list) { %>
 
+        <% for (let i of contact_list) { %>
+            <%if(locals.user.email == i.email){%>
         <div class="max-w-md py-4 px-8 bg-white shadow-lg rounded-lg my-20 border-4 border-black">
 
             <div class="flex justify-center md:justify-end -mt-16">
@@ -85,9 +85,8 @@
             </div>
 
         </div>
-
+                <%}%>
         <%}%>
-    <%}%>
 </center>
 
 

@@ -13,6 +13,7 @@
 <div id="page-heading">
     <ul>
         <% for (let i of contact_list) { %>
+                <%if(locals.user.email === i.email){%>
             <li>
                 <div class="text-center mx-72 lg:w-7/12 bg-white p-2 rounded-lg lg:rounded-lg mb-2">
                     <p style="padding: 5px; background-color: white" class="text-l">
@@ -26,6 +27,7 @@
                 </div>
 
             </li>
+                <%}%>
         <%}%>
     </ul>
 
@@ -68,6 +70,20 @@
                             <p class="text-xs italic text-red-500">Please enter the Phone Number</p>
                         </div>
                     </div>
+                    <div class="mb-4 md:flex md:justify-center">
+                        <div class="mb-4 md:mr-2 md:mb-0 ">
+                            <label class="block mb-2 text-sm font-bold text-gray-700" for="email">
+                                User Email
+                            </label>
+                            <input
+                                    class="w-full px-3 py-2 mb-3 text-sm leading-tight text-gray-700 border border-red-500 rounded shadow appearance-none focus:outline-none focus:shadow-outline"
+                                    type="text"
+                                    name="email"
+                                    placeholder="Please enter the User Email"
+                            />
+                            <p class="text-xs italic text-red-500">Please enter the User Email</p>
+                        </div>
+                    </div>
 
 
                     <div class="mb-6 text-center">
@@ -79,7 +95,7 @@
                     </div>
                     <hr class="mb-6 border-t" />
                     <div class="text-center ">
-                        <a href="/" class="inline-block text-sm mt-12 px-4 py-2 leading-none border-4 rounded text-black border-black hover:border-transparent hover:text-white hover:bg-black mt-4 lg:mt-0">Home...</a>
+                        <a href="/users/profile" class="inline-block text-sm mt-12 px-4 py-2 leading-none border-4 rounded text-black border-black hover:border-transparent hover:text-white hover:bg-black mt-4 lg:mt-0">Home...</a>
                     </div>
 
                 </form>
