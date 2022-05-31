@@ -1,18 +1,15 @@
-const Contact = require('../models/contact');
+const Contact = require("../models/contact");
 
-module.exports.home = function (req,res) {
+module.exports.home = function (req, res) {
+  Contact.find({}, function (err, contact) {
+    if (err) {
+      console.log("error in fetching contacts");
+      return;
+    }
 
-    Contact.find({},function(err,contact){
-        if(err){
-            console.log('error in fetching contacts');
-            return;
-        }
-
-        return res.render('home',
-            {
-                title: 'My Contacts List',
-                contact_list: contact
-            });
+    return res.render("home", {
+      title: "My Contacts List",
+      contact_list: contact,
     });
-
-}
+  });
+};
